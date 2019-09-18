@@ -63,8 +63,6 @@ public class Facil extends AppCompatActivity {
         for(int i=0;i<usedPlacesTmp.length;i++){
             if(usedPlacesTmp[i]){
                 while(true){
-                    /*if(i==7)
-                        break;*/
                     int x=(int)(Math.random()*8);
                     if(!usedPlaces[x]){
                         int id=(int)places[i].getTag();
@@ -77,18 +75,14 @@ public class Facil extends AppCompatActivity {
                 }
             }
         }
-
-
-
     }
 
 
-    public void clickImg(View view) throws InterruptedException {
+    public void clickImg(View view){
         int viewId=view.getId();
         ImageView img=(ImageView)findViewById(viewId);
 
         if(selectImgs.containsKey(viewId)){
-            System.out.println("ENTRA CONTAINSKEY");
             img.setImageResource(R.drawable.android);
             selectImgs.remove(viewId);
             resp=0;
@@ -97,23 +91,17 @@ public class Facil extends AppCompatActivity {
         else{
             selectImgs.put(viewId, true);
             int resId=(int)img.getTag();
-            System.out.println("resID: "+resId);
             img.setImageResource(resId);
-            //setImage(img,resId);
-            System.out.println("NO ENTRA CONTAINSKEY");
-            //resp=(int)view.getTag();
             contVolt++;
         }
-        System.out.println("viewID: "+viewId);
+
         if(contVolt<0)
             contVolt=0;
-        System.out.println("CONTVOLT: "+contVolt);
 
         ImageView imgAnt=(ImageView)findViewById(viewIdAnt);
 
         if(contVolt==2){
             if(resp==(int)view.getTag()){       //SON IGUALES
-                System.out.println("ENTRO SON IGUALES");
                 puntos++;
                 tvPuntos=(TextView)findViewById(R.id.tvPuntos);
                 tvPuntos.setText("Puntos: "+puntos);
@@ -121,10 +109,8 @@ public class Facil extends AppCompatActivity {
                 imgAnt.setEnabled(false);
                 contVolt=0;
                 match++;
-                //selectImgs.remove(viewId);
             }
             else{                               //NO SON IGUALES
-                System.out.println("ENTRO NO SON IGUALES");
                 //TimeUnit.SECONDS.sleep(1);                          //ESPERAR 1 SEGUNDO Y SE VOLTEA
                 img.setImageResource(R.drawable.android);
                 imgAnt.setImageResource(R.drawable.android);
@@ -134,18 +120,10 @@ public class Facil extends AppCompatActivity {
             }
         }
 
-
-
-        //System.out.println("imgTAG: "+img.getTag());
         viewIdAnt=view.getId();
         resp=(int)view.getTag();
-        //System.out.println("VIEWIDANT: "+viewIdAnt);
-        //System.out.println("RESP: "+resp);
-        //System.out.println("ESPERANDO ANTES DE SETIMAGERESOUCE");
-        //TimeUnit.SECONDS.sleep(2);
 
-        System.out.println(Arrays.asList(selectImgs));
-
+        //System.out.println(Arrays.asList(selectImgs));
 
         if(match==4){
             Button iniciar=(Button)findViewById(R.id.bIniciar);
