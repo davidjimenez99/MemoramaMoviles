@@ -2,8 +2,11 @@ package com.example.android.memorama;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +23,7 @@ public class Facil extends AppCompatActivity {
     private ImageView places[]=new ImageView[8];
     private boolean usedPlaces[]=new boolean[8];
     int contVolt=0;
-    int resp, viewIdAnt, puntos=0;
+    int resp, viewIdAnt, puntos=0, match=0;
     HashMap<Integer, Boolean> selectImgs = new HashMap<Integer, Boolean>();
     TextView tvPuntos;
 
@@ -101,11 +104,14 @@ public class Facil extends AppCompatActivity {
             //resp=(int)view.getTag();
             contVolt++;
         }
-
+        System.out.println("viewID: "+viewId);
+        if(contVolt<0)
+            contVolt=0;
         System.out.println("CONTVOLT: "+contVolt);
 
         ImageView imgAnt=(ImageView)findViewById(viewIdAnt);
-        if(contVolt==2){                                            //CHECAR SI SE SOBREESCRIBE resp
+
+        if(contVolt==2){
             if(resp==(int)view.getTag()){       //SON IGUALES
                 System.out.println("ENTRO SON IGUALES");
                 puntos++;
@@ -114,6 +120,8 @@ public class Facil extends AppCompatActivity {
                 img.setEnabled(false);
                 imgAnt.setEnabled(false);
                 contVolt=0;
+                match++;
+                //selectImgs.remove(viewId);
             }
             else{                               //NO SON IGUALES
                 System.out.println("ENTRO NO SON IGUALES");
@@ -122,6 +130,7 @@ public class Facil extends AppCompatActivity {
                 imgAnt.setImageResource(R.drawable.android);
                 contVolt=0;
                 selectImgs.remove(viewId);
+                selectImgs.remove(viewIdAnt);
             }
         }
 
@@ -134,15 +143,52 @@ public class Facil extends AppCompatActivity {
         //System.out.println("RESP: "+resp);
         //System.out.println("ESPERANDO ANTES DE SETIMAGERESOUCE");
         //TimeUnit.SECONDS.sleep(2);
+
+        System.out.println(Arrays.asList(selectImgs));
+
+
+        if(match==4){
+            Button iniciar=(Button)findViewById(R.id.bIniciar);
+            iniciar.setEnabled(true);
+        }
     }
 
 
-    public void setImage(ImageView img, int resID){
-        System.out.println("ENTRO A METODO");
-        img.setImageResource(resID);
+    public void verSolucion(View view){
+        ImageView img=(ImageView)findViewById(R.id.img1);
+        int resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img2);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img3);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img4);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img5);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img6);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img7);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        img=(ImageView)findViewById(R.id.img8);
+        resId=(int)img.getTag();
+        img.setImageResource(resId);
+        Button iniciar=(Button)findViewById(R.id.bIniciar);
+        iniciar.setEnabled(true);
     }
 
 
+    public void iniciarJuego(View view){
+        Intent intent=new Intent(this, Facil.class);
+        finishAffinity();
+        startActivity(intent);
+    }
 
 
 
