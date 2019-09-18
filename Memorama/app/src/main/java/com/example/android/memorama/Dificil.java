@@ -139,7 +139,7 @@ public class Dificil extends AppCompatActivity {
         //System.out.println(Arrays.asList(selectImgs));
 
 
-        if(match==8){
+        if(match==12){
             Button iniciar=(Button)findViewById(R.id.bIniciar);
             iniciar.setEnabled(true);
         }
@@ -225,7 +225,7 @@ public class Dificil extends AppCompatActivity {
 
 
     public void iniciarJuego(View view){
-        Intent intent=new Intent(this, Medio.class);
+        Intent intent=new Intent(this, Dificil.class);
         finishAffinity();
         startActivity(intent);
     }
